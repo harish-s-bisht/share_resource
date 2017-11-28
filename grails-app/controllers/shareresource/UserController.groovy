@@ -19,4 +19,8 @@ class UserController {
     def dashboard(){
         render view: "userDashboard"
     }
+    def home(){
+        List<Topic> topicList = userService.getAllTopics()
+        render (view:"userDashboard",model: [topicList: topicList])
+    }
 }
