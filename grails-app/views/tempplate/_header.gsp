@@ -4,6 +4,7 @@
     %{--<link href="../css/custom.css" rel="stylesheet">--}%
 </head>
 <body>
+<div class="container">
 <div class="row">
     <div class="col-md-12 headerBox">
     <div class="col-md-2">Link Share</div>
@@ -11,6 +12,7 @@
             <input class="border-none" type="text" placeholder="search">
         </div>
     </div>
+</div>
 </div>
 </body>
 </html>
