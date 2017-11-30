@@ -97,7 +97,14 @@ environments {
 grails.plugin.databasemigration.updateOnStart = true
 grails.plugin.databasemigration.updateOnStartFileNames = ['changelog.xml']
 grails.plugin.databasemigration.changeLogFileName = 'changelog.xml'
+grails.plugin.springsecurity.successHandler.alwaysUseDefault = true
+grails.plugin.springsecurity.successHandler.defaultTargetUrl = '/home'
+
+//grails.plugin.springsecurity.auth.loginFormUrl = '/'
+
+//grails.plugin.springsecurity.failureHandler.defaultFailureUrl = '/ss'
 // log4j configuration
+
 log4j.main = {
     // Example of changing the log pattern for the default console appender:
     //
@@ -123,6 +130,8 @@ log4j.main = {
 grails.plugin.springsecurity.userLookup.userDomainClassName = 'shareresource.User'
 grails.plugin.springsecurity.userLookup.authorityJoinClassName = 'shareresource.UserRole'
 grails.plugin.springsecurity.authority.className = 'shareresource.Role'
+grails.plugin.springsecurity.login.usernamePropertyName = 'j_username'
+grails.plugin.springsecurity.login.passwordPropertyName = 'j_password'
 grails.plugin.springsecurity.controllerAnnotations.staticRules = [
 	'/':                ['permitAll'],
 	'/index':           ['permitAll'],
@@ -131,6 +140,8 @@ grails.plugin.springsecurity.controllerAnnotations.staticRules = [
 	'/**/js/**':        ['permitAll'],
 	'/**/css/**':       ['permitAll'],
 	'/**/images/**':    ['permitAll'],
-	'/**/favicon.ico':  ['permitAll']
+	'/**/favicon.ico':  ['permitAll'],
+    '/login/**':        ['permitAll']
+
 ]
 
