@@ -20,11 +20,18 @@ class User implements Serializable {
 	Date dateCreated
 	Date lastUpdated
 	String email
+	boolean enabled = true
+    boolean accountExpired
+    boolean accountLocked
+    boolean passwordExpired
+//	String BASE_DIR = "/home/harish/pics/"
 
-	static hasMany = [topics:Topic,
-					  resourceRatings: ResourceRating,
-					  readingItems: ReadingItem]
+	static hasMany = [resourceRatings: ResourceRating,
+					  readingItems: ReadingItem,
+                      topics: Topic,resources: Resource,
+                      subscriptions: Subscription]
 	String photoPath
+
 
 
 
@@ -52,14 +59,14 @@ class User implements Serializable {
 		password = springSecurityService?.passwordEncoder ? springSecurityService.encodePassword(password) : password
 	}
 
-	static transients = ['springSecurityService']
+	static transients = ['springSecurityService','enabled','accountExpired','accountLocked','passwordExpired']
 
 	static constraints = {
 		username unique: true,nullable: false
 		firstName nullable: false
 		lastName nullable: false
 		password nullable: false
-		email nullable: false,unique: false
+		email nullable: false,unique: true
 		admin nullable: true
 		active nullable: true
 		dateCreated nullable: true
@@ -69,5 +76,6 @@ class User implements Serializable {
 	static mapping = {
 //		version false
 		password column: '`password`'
+
 	}
 }

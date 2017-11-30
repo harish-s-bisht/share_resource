@@ -4,9 +4,11 @@ class Topic {
     String name
     Date dateCreated
     Date lastUpdated
-    enum visibility {Public ,Private}
+    String visibility
     static belongsTo = [user: User]
-    static hasOne = [resource: Resource]
+    static hasMany = [resources: Resource,subscriptions: Subscription]
     static constraints = {
+        dateCreated nullable: true
+        lastUpdated nullable: true
     }
 }

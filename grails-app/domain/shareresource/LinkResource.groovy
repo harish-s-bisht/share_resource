@@ -1,7 +1,9 @@
 package shareresource
 
-class LinkResource {
-        String url
+class LinkResource extends Resource{
+    String url
+    static belongsTo = [resource: Resource]
     static constraints = {
+
     }
 }

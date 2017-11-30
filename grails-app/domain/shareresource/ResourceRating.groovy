@@ -5,7 +5,8 @@ class ResourceRating {
 
     Resource resource
     User user
-    static hasOne = [resource: Resource]
+    static belongsTo = [resource: Resource]
     static constraints = {
+        resource nullable: true
     }
 }

@@ -2,9 +2,10 @@ package shareresource
 
 class ReadingItem {
     Boolean isRead
-    static hasMany = [users: User]
-    static hasOne = [resource: Resource]
-    static belongsTo = [User]
+    User user
+    static belongsTo = [resource: Resource]
     static constraints = {
+        resource nullable: true
+
     }
 }
