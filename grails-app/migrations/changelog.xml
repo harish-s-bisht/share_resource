@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-2.0.xsd">
-    <changeSet author="harish (generated)" id="1511525072768-1">
+    <changeSet author="harish (generated)" id="1511957234844-1">
         <createTable tableName="document_resource">
             <column autoIncrement="true" name="id" type="bigint">
                 <constraints nullable="false" primaryKey="true" primaryKeyName="document_resoPK"/>
@@ -11,9 +11,12 @@
             <column name="file_path" type="varchar(255)">
                 <constraints nullable="false"/>
             </column>
+            <column name="resource_id" type="bigint">
+                <constraints nullable="false"/>
+            </column>
         </createTable>
     </changeSet>
-    <changeSet author="harish (generated)" id="1511525072768-2">
+    <changeSet author="harish (generated)" id="1511957234844-2">
         <createTable tableName="link_resource">
             <column autoIncrement="true" name="id" type="bigint">
                 <constraints nullable="false" primaryKey="true" primaryKeyName="link_resourcePK"/>
@@ -21,12 +24,15 @@
             <column name="version" type="bigint">
                 <constraints nullable="false"/>
             </column>
+            <column name="resource_id" type="bigint">
+                <constraints nullable="false"/>
+            </column>
             <column name="url" type="varchar(255)">
                 <constraints nullable="false"/>
             </column>
         </createTable>
     </changeSet>
-    <changeSet author="harish (generated)" id="1511525072768-3">
+    <changeSet author="harish (generated)" id="1511957234844-3">
         <createTable tableName="reading_item">
             <column autoIncrement="true" name="id" type="bigint">
                 <constraints nullable="false" primaryKey="true" primaryKeyName="reading_itemPK"/>
@@ -37,14 +43,20 @@
             <column name="is_read" type="bit">
                 <constraints nullable="false"/>
             </column>
+            <column name="resource_id" type="bigint">
+                <constraints nullable="false"/>
+            </column>
         </createTable>
     </changeSet>
-    <changeSet author="harish (generated)" id="1511525072768-4">
+    <changeSet author="harish (generated)" id="1511957234844-4">
         <createTable tableName="resource">
             <column autoIncrement="true" name="id" type="bigint">
                 <constraints nullable="false" primaryKey="true" primaryKeyName="resourcePK"/>
             </column>
             <column name="version" type="bigint">
+                <constraints nullable="false"/>
+            </column>
+            <column name="created_by_id" type="bigint">
                 <constraints nullable="false"/>
             </column>
             <column name="date_created" type="datetime">
@@ -56,15 +68,12 @@
             <column name="last_updated" type="datetime">
                 <constraints nullable="false"/>
             </column>
-            <column name="reading_item_id" type="bigint">
-                <constraints nullable="false"/>
-            </column>
-            <column name="resource_rating_id" type="bigint">
+            <column name="topic_id" type="bigint">
                 <constraints nullable="false"/>
             </column>
         </createTable>
     </changeSet>
-    <changeSet author="harish (generated)" id="1511525072768-5">
+    <changeSet author="harish (generated)" id="1511957234844-5">
         <createTable tableName="resource_rating">
             <column autoIncrement="true" name="id" type="bigint">
                 <constraints nullable="false" primaryKey="true" primaryKeyName="resource_ratiPK"/>
@@ -72,12 +81,18 @@
             <column name="version" type="bigint">
                 <constraints nullable="false"/>
             </column>
+            <column name="resource_id" type="bigint">
+                <constraints nullable="false"/>
+            </column>
             <column name="score" type="integer">
+                <constraints nullable="false"/>
+            </column>
+            <column name="user_id" type="bigint">
                 <constraints nullable="false"/>
             </column>
         </createTable>
     </changeSet>
-    <changeSet author="harish (generated)" id="1511525072768-6">
+    <changeSet author="harish (generated)" id="1511957234844-6">
         <createTable tableName="role">
             <column autoIncrement="true" name="id" type="bigint">
                 <constraints nullable="false" primaryKey="true" primaryKeyName="rolePK"/>
@@ -90,7 +105,7 @@
             </column>
         </createTable>
     </changeSet>
-    <changeSet author="harish (generated)" id="1511525072768-7">
+    <changeSet author="harish (generated)" id="1511957234844-7">
         <createTable tableName="subscription">
             <column autoIncrement="true" name="id" type="bigint">
                 <constraints nullable="false" primaryKey="true" primaryKeyName="subscriptionPK"/>
@@ -103,19 +118,19 @@
             </column>
         </createTable>
     </changeSet>
-    <changeSet author="harish (generated)" id="1511525072768-8">
+    <changeSet author="harish (generated)" id="1511957234844-8">
         <createTable tableName="subscription_topic">
             <column name="subscription_topic_id" type="bigint"/>
             <column name="topic_id" type="bigint"/>
         </createTable>
     </changeSet>
-    <changeSet author="harish (generated)" id="1511525072768-9">
+    <changeSet author="harish (generated)" id="1511957234844-9">
         <createTable tableName="subscription_user">
             <column name="subscription_user_id" type="bigint"/>
             <column name="user_id" type="bigint"/>
         </createTable>
     </changeSet>
-    <changeSet author="harish (generated)" id="1511525072768-10">
+    <changeSet author="harish (generated)" id="1511957234844-10">
         <createTable tableName="topic">
             <column autoIncrement="true" name="id" type="bigint">
                 <constraints nullable="false" primaryKey="true" primaryKeyName="topicPK"/>
@@ -123,24 +138,20 @@
             <column name="version" type="bigint">
                 <constraints nullable="false"/>
             </column>
-            <column name="date_created" type="datetime">
-                <constraints nullable="false"/>
-            </column>
-            <column name="last_updated" type="datetime">
-                <constraints nullable="false"/>
-            </column>
+            <column name="date_created" type="datetime"/>
+            <column name="last_updated" type="datetime"/>
             <column name="name" type="varchar(255)">
-                <constraints nullable="false"/>
-            </column>
-            <column name="resource_id" type="bigint">
                 <constraints nullable="false"/>
             </column>
             <column name="user_id" type="bigint">
                 <constraints nullable="false"/>
             </column>
+            <column name="visibility" type="varchar(255)">
+                <constraints nullable="false"/>
+            </column>
         </createTable>
     </changeSet>
-    <changeSet author="harish (generated)" id="1511525072768-11">
+    <changeSet author="harish (generated)" id="1511957234844-11">
         <createTable tableName="user">
             <column autoIncrement="true" name="id" type="bigint">
                 <constraints nullable="false" primaryKey="true" primaryKeyName="userPK"/>
@@ -148,15 +159,9 @@
             <column name="version" type="bigint">
                 <constraints nullable="false"/>
             </column>
-            <column name="active" type="bit">
-                <constraints nullable="false"/>
-            </column>
-            <column name="admin" type="bit">
-                <constraints nullable="false"/>
-            </column>
-            <column name="date_created" type="datetime">
-                <constraints nullable="false"/>
-            </column>
+            <column name="active" type="bit"/>
+            <column name="admin" type="bit"/>
+            <column name="date_created" type="datetime"/>
             <column name="email" type="varchar(255)">
                 <constraints nullable="false"/>
             </column>
@@ -166,22 +171,11 @@
             <column name="last_name" type="varchar(255)">
                 <constraints nullable="false"/>
             </column>
-            <column name="last_updated" type="datetime">
-                <constraints nullable="false"/>
-            </column>
+            <column name="last_updated" type="datetime"/>
             <column name="password" type="varchar(255)">
                 <constraints nullable="false"/>
             </column>
-            <column name="photo" type="tinyint">
-                <constraints nullable="false"/>
-            </column>
-            <column name="reading_item_id" type="bigint">
-                <constraints nullable="false"/>
-            </column>
-            <column name="resource_id" type="bigint">
-                <constraints nullable="false"/>
-            </column>
-            <column name="resource_rating_id" type="bigint">
+            <column name="photo_path" type="varchar(255)">
                 <constraints nullable="false"/>
             </column>
             <column name="username" type="varchar(255)">
@@ -189,179 +183,7 @@
             </column>
         </createTable>
     </changeSet>
-    <changeSet author="harish (generated)" id="1511525072768-12">
-        <createTable tableName="user_role">
-            <column name="user_id" type="bigint">
-                <constraints nullable="false"/>
-            </column>
-            <column name="role_id" type="bigint">
-                <constraints nullable="false"/>
-            </column>
-        </createTable>
-    </changeSet>
-    <changeSet author="harish (generated)" id="1511525072768-13">
-        <addPrimaryKey columnNames="user_id, role_id" constraintName="user_rolePK" tableName="user_role"/>
-    </changeSet>
-    <changeSet author="harish (generated)" id="1511525072768-27">
-        <createIndex indexName="FK_hb8gxjab9ondjuq3y2va5bocf" tableName="resource">
-            <column name="reading_item_id"/>
-        </createIndex>
-    </changeSet>
-    <changeSet author="harish (generated)" id="1511525072768-28">
-        <createIndex indexName="FK_hqtst54l8uibbiafuk8jh49m2" tableName="resource">
-            <column name="resource_rating_id"/>
-        </createIndex>
-    </changeSet>
-    <changeSet author="harish (generated)" id="1511525072768-29">
-        <createIndex indexName="reading_item_id_uniq_1511525072595" tableName="resource" unique="true">
-            <column name="reading_item_id"/>
-        </createIndex>
-    </changeSet>
-    <changeSet author="harish (generated)" id="1511525072768-30">
-        <createIndex indexName="resource_rating_id_uniq_1511525072601" tableName="resource" unique="true">
-            <column name="resource_rating_id"/>
-        </createIndex>
-    </changeSet>
-    <changeSet author="harish (generated)" id="1511525072768-31">
-        <createIndex indexName="authority_uniq_1511525072602" tableName="role" unique="true">
-            <column name="authority"/>
-        </createIndex>
-    </changeSet>
-    <changeSet author="harish (generated)" id="1511525072768-32">
-        <createIndex indexName="FK_llhftiy63le9kpbenwahrhj5h" tableName="subscription_topic">
-            <column name="topic_id"/>
-        </createIndex>
-    </changeSet>
-    <changeSet author="harish (generated)" id="1511525072768-33">
-        <createIndex indexName="FK_tmbxbauvrcv1b53gjjp4m8c5n" tableName="subscription_topic">
-            <column name="subscription_topic_id"/>
-        </createIndex>
-    </changeSet>
-    <changeSet author="harish (generated)" id="1511525072768-34">
-        <createIndex indexName="FK_82nom6tw5micunabp7kwbqtxs" tableName="subscription_user">
-            <column name="subscription_user_id"/>
-        </createIndex>
-    </changeSet>
-    <changeSet author="harish (generated)" id="1511525072768-35">
-        <createIndex indexName="FK_a4fbfhdkow6cnbb9xqvd5fdqm" tableName="subscription_user">
-            <column name="user_id"/>
-        </createIndex>
-    </changeSet>
-    <changeSet author="harish (generated)" id="1511525072768-36">
-        <createIndex indexName="FK_4mry2h1j95xrh1a4bvecnmajf" tableName="topic">
-            <column name="resource_id"/>
-        </createIndex>
-    </changeSet>
-    <changeSet author="harish (generated)" id="1511525072768-37">
-        <createIndex indexName="FK_c975xs66f0v6extdjdl0csctr" tableName="topic">
-            <column name="user_id"/>
-        </createIndex>
-    </changeSet>
-    <changeSet author="harish (generated)" id="1511525072768-38">
-        <createIndex indexName="resource_id_uniq_1511525072609" tableName="topic" unique="true">
-            <column name="resource_id"/>
-        </createIndex>
-    </changeSet>
-    <changeSet author="harish (generated)" id="1511525072768-39">
-        <createIndex indexName="FK_1sqjg6sp95f0ao0icvgmq5jjy" tableName="user">
-            <column name="resource_rating_id"/>
-        </createIndex>
-    </changeSet>
-    <changeSet author="harish (generated)" id="1511525072768-40">
-        <createIndex indexName="FK_a6n0ads6w5i1d2rrsx8bn0030" tableName="user">
-            <column name="resource_id"/>
-        </createIndex>
-    </changeSet>
-    <changeSet author="harish (generated)" id="1511525072768-41">
-        <createIndex indexName="FK_j2p4qe65jx4xctyp23qf28la9" tableName="user">
-            <column name="reading_item_id"/>
-        </createIndex>
-    </changeSet>
-    <changeSet author="harish (generated)" id="1511525072768-42">
-        <createIndex indexName="resource_id_uniq_1511525072611" tableName="user" unique="true">
-            <column name="resource_id"/>
-        </createIndex>
-    </changeSet>
-    <changeSet author="harish (generated)" id="1511525072768-43">
-        <createIndex indexName="username_uniq_1511525072612" tableName="user" unique="true">
-            <column name="username"/>
-        </createIndex>
-    </changeSet>
-    <changeSet author="harish (generated)" id="1511525072768-44">
-        <createIndex indexName="FK_apcc8lxk2xnug8377fatvbn04" tableName="user_role">
-            <column name="user_id"/>
-        </createIndex>
-    </changeSet>
-    <changeSet author="harish (generated)" id="1511525072768-45">
-        <createIndex indexName="FK_it77eq964jhfqtu54081ebtio" tableName="user_role">
-            <column name="role_id"/>
-        </createIndex>
-    </changeSet>
-    <changeSet author="harish (generated)" id="1511525072768-14">
-        <addForeignKeyConstraint baseColumnNames="reading_item_id" baseTableName="resource" constraintName="FK_hb8gxjab9ondjuq3y2va5bocf" deferrable="false" initiallyDeferred="false" referencedColumnNames="id" referencedTableName="reading_item" referencesUniqueColumn="false"/>
-    </changeSet>
-    <changeSet author="harish (generated)" id="1511525072768-15">
-        <addForeignKeyConstraint baseColumnNames="resource_rating_id" baseTableName="resource" constraintName="FK_hqtst54l8uibbiafuk8jh49m2" deferrable="false" initiallyDeferred="false" referencedColumnNames="id" referencedTableName="resource_rating" referencesUniqueColumn="false"/>
-    </changeSet>
-    <changeSet author="harish (generated)" id="1511525072768-16">
-        <addForeignKeyConstraint baseColumnNames="subscription_topic_id" baseTableName="subscription_topic" constraintName="FK_tmbxbauvrcv1b53gjjp4m8c5n" deferrable="false" initiallyDeferred="false" referencedColumnNames="id" referencedTableName="subscription" referencesUniqueColumn="false"/>
-    </changeSet>
-    <changeSet author="harish (generated)" id="1511525072768-17">
-        <addForeignKeyConstraint baseColumnNames="topic_id" baseTableName="subscription_topic" constraintName="FK_llhftiy63le9kpbenwahrhj5h" deferrable="false" initiallyDeferred="false" referencedColumnNames="id" referencedTableName="topic" referencesUniqueColumn="false"/>
-    </changeSet>
-    <changeSet author="harish (generated)" id="1511525072768-18">
-        <addForeignKeyConstraint baseColumnNames="subscription_user_id" baseTableName="subscription_user" constraintName="FK_82nom6tw5micunabp7kwbqtxs" deferrable="false" initiallyDeferred="false" referencedColumnNames="id" referencedTableName="subscription" referencesUniqueColumn="false"/>
-    </changeSet>
-    <changeSet author="harish (generated)" id="1511525072768-19">
-        <addForeignKeyConstraint baseColumnNames="user_id" baseTableName="subscription_user" constraintName="FK_a4fbfhdkow6cnbb9xqvd5fdqm" deferrable="false" initiallyDeferred="false" referencedColumnNames="id" referencedTableName="user" referencesUniqueColumn="false"/>
-    </changeSet>
-    <changeSet author="harish (generated)" id="1511525072768-20">
-        <addForeignKeyConstraint baseColumnNames="resource_id" baseTableName="topic" constraintName="FK_4mry2h1j95xrh1a4bvecnmajf" deferrable="false" initiallyDeferred="false" referencedColumnNames="id" referencedTableName="resource" referencesUniqueColumn="false"/>
-    </changeSet>
-    <changeSet author="harish (generated)" id="1511525072768-21">
-        <addForeignKeyConstraint baseColumnNames="user_id" baseTableName="topic" constraintName="FK_c975xs66f0v6extdjdl0csctr" deferrable="false" initiallyDeferred="false" referencedColumnNames="id" referencedTableName="user" referencesUniqueColumn="false"/>
-    </changeSet>
-    <changeSet author="harish (generated)" id="1511525072768-22">
-        <addForeignKeyConstraint baseColumnNames="reading_item_id" baseTableName="user" constraintName="FK_j2p4qe65jx4xctyp23qf28la9" deferrable="false" initiallyDeferred="false" referencedColumnNames="id" referencedTableName="reading_item" referencesUniqueColumn="false"/>
-    </changeSet>
-    <changeSet author="harish (generated)" id="1511525072768-23">
-        <addForeignKeyConstraint baseColumnNames="resource_id" baseTableName="user" constraintName="FK_a6n0ads6w5i1d2rrsx8bn0030" deferrable="false" initiallyDeferred="false" referencedColumnNames="id" referencedTableName="resource" referencesUniqueColumn="false"/>
-    </changeSet>
-    <changeSet author="harish (generated)" id="1511525072768-24">
-        <addForeignKeyConstraint baseColumnNames="resource_rating_id" baseTableName="user" constraintName="FK_1sqjg6sp95f0ao0icvgmq5jjy" deferrable="false" initiallyDeferred="false" referencedColumnNames="id" referencedTableName="resource_rating" referencesUniqueColumn="false"/>
-    </changeSet>
-    <changeSet author="harish (generated)" id="1511525072768-25">
-        <addForeignKeyConstraint baseColumnNames="role_id" baseTableName="user_role" constraintName="FK_it77eq964jhfqtu54081ebtio" deferrable="false" initiallyDeferred="false" referencedColumnNames="id" referencedTableName="role" referencesUniqueColumn="false"/>
-    </changeSet>
-    <changeSet author="harish (generated)" id="1511525072768-26">
-        <addForeignKeyConstraint baseColumnNames="user_id" baseTableName="user_role" constraintName="FK_apcc8lxk2xnug8377fatvbn04" deferrable="false" initiallyDeferred="false" referencedColumnNames="id" referencedTableName="user" referencesUniqueColumn="false"/>
-    </changeSet>
-
-    <changeSet author="harish (generated)" id="1511525709510-1">
-        <modifyDataType columnName="active" newDataType="bit" tableName="user"/>
-    </changeSet>
-    <changeSet author="harish (generated)" id="1511525709510-2">
-        <dropNotNullConstraint columnDataType="bit" columnName="active" tableName="user"/>
-    </changeSet>
-    <changeSet author="harish (generated)" id="1511525709510-3">
-        <modifyDataType columnName="admin" newDataType="bit" tableName="user"/>
-    </changeSet>
-    <changeSet author="harish (generated)" id="1511525709510-4">
-        <dropNotNullConstraint columnDataType="bit" columnName="admin" tableName="user"/>
-    </changeSet>
-    <changeSet author="harish (generated)" id="1511525709510-5">
-        <modifyDataType columnName="date_created" newDataType="datetime" tableName="user"/>
-    </changeSet>
-    <changeSet author="harish (generated)" id="1511525709510-6">
-        <dropNotNullConstraint columnDataType="datetime" columnName="date_created" tableName="user"/>
-    </changeSet>
-    <changeSet author="harish (generated)" id="1511525709510-7">
-        <modifyDataType columnName="last_updated" newDataType="datetime" tableName="user"/>
-    </changeSet>
-    <changeSet author="harish (generated)" id="1511525709510-8">
-        <dropNotNullConstraint columnDataType="datetime" columnName="last_updated" tableName="user"/>
-    </changeSet>
-    <changeSet author="harish (generated)" id="1511846126297-1">
+    <changeSet author="harish (generated)" id="1511957234844-12">
         <createTable tableName="user_reading_items">
             <column name="user_id" type="bigint">
                 <constraints nullable="false"/>
@@ -371,109 +193,316 @@
             </column>
         </createTable>
     </changeSet>
-    <changeSet author="harish (generated)" id="1511846126297-2">
-        <addColumn tableName="resource">
-            <column name="created_by_id" type="bigint">
+    <changeSet author="harish (generated)" id="1511957234844-13">
+        <createTable tableName="user_role">
+            <column name="user_id" type="bigint">
                 <constraints nullable="false"/>
             </column>
-        </addColumn>
-    </changeSet>
-    <changeSet author="harish (generated)" id="1511846126297-3">
-        <addColumn tableName="resource">
-            <column name="topic_id" type="bigint">
-                <constraints nullable="false" unique="true"/>
+            <column name="role_id" type="bigint">
+                <constraints nullable="false"/>
             </column>
-        </addColumn>
+        </createTable>
     </changeSet>
-    <changeSet author="harish (generated)" id="1511846126297-4">
-        <addColumn tableName="resource_rating">
+    <changeSet author="harish (generated)" id="1511957234844-14">
+        <addPrimaryKey columnNames="user_id, reading_item_id" tableName="user_reading_items"/>
+    </changeSet>
+    <changeSet author="harish (generated)" id="1511957234844-15">
+        <addPrimaryKey columnNames="user_id, role_id" constraintName="user_rolePK" tableName="user_role"/>
+    </changeSet>
+    <changeSet author="harish (generated)" id="1511957234844-31">
+        <createIndex indexName="FK_lkiqj7a4gc4b6yrgtfe2kjs4q" tableName="document_resource">
+            <column name="resource_id"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="harish (generated)" id="1511957234844-32">
+        <createIndex indexName="resource_id_uniq_1511957234751" tableName="document_resource" unique="true">
+            <column name="resource_id"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="harish (generated)" id="1511957234844-33">
+        <createIndex indexName="FK_4alc7xk1wq296mhfx64y4oaqv" tableName="link_resource">
+            <column name="resource_id"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="harish (generated)" id="1511957234844-34">
+        <createIndex indexName="resource_id_uniq_1511957234755" tableName="link_resource" unique="true">
+            <column name="resource_id"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="harish (generated)" id="1511957234844-35">
+        <createIndex indexName="FK_93xit1asu8caf665svq0vqmeq" tableName="reading_item">
+            <column name="resource_id"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="harish (generated)" id="1511957234844-36">
+        <createIndex indexName="FK_29on5nwfvvdmtimh40b7tnsw5" tableName="resource">
+            <column name="topic_id"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="harish (generated)" id="1511957234844-37">
+        <createIndex indexName="FK_g246684ev6hmr47bn9x3jv37f" tableName="resource">
+            <column name="created_by_id"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="harish (generated)" id="1511957234844-38">
+        <createIndex indexName="topic_id_uniq_1511957234761" tableName="resource" unique="true">
+            <column name="topic_id"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="harish (generated)" id="1511957234844-39">
+        <createIndex indexName="FK_hmnf6fb69j5w3nttui4g372w9" tableName="resource_rating">
+            <column name="resource_id"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="harish (generated)" id="1511957234844-40">
+        <createIndex indexName="FK_qae5oa07q1791tfyocrc7w995" tableName="resource_rating">
+            <column name="user_id"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="harish (generated)" id="1511957234844-41">
+        <createIndex indexName="resource_id_uniq_1511957234762" tableName="resource_rating" unique="true">
+            <column name="resource_id"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="harish (generated)" id="1511957234844-42">
+        <createIndex indexName="authority_uniq_1511957234763" tableName="role" unique="true">
+            <column name="authority"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="harish (generated)" id="1511957234844-43">
+        <createIndex indexName="FK_llhftiy63le9kpbenwahrhj5h" tableName="subscription_topic">
+            <column name="topic_id"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="harish (generated)" id="1511957234844-44">
+        <createIndex indexName="FK_tmbxbauvrcv1b53gjjp4m8c5n" tableName="subscription_topic">
+            <column name="subscription_topic_id"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="harish (generated)" id="1511957234844-45">
+        <createIndex indexName="FK_82nom6tw5micunabp7kwbqtxs" tableName="subscription_user">
+            <column name="subscription_user_id"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="harish (generated)" id="1511957234844-46">
+        <createIndex indexName="FK_a4fbfhdkow6cnbb9xqvd5fdqm" tableName="subscription_user">
+            <column name="user_id"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="harish (generated)" id="1511957234844-47">
+        <createIndex indexName="email_uniq_1511957234771" tableName="user" unique="true">
+            <column name="email"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="harish (generated)" id="1511957234844-48">
+        <createIndex indexName="username_uniq_1511957234771" tableName="user" unique="true">
+            <column name="username"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="harish (generated)" id="1511957234844-49">
+        <createIndex indexName="FK_kuud68k0atwgcfvoyu2e5m9yp" tableName="user_reading_items">
+            <column name="reading_item_id"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="harish (generated)" id="1511957234844-50">
+        <createIndex indexName="FK_pfol7jm6ryt2xtmn10w8l94c9" tableName="user_reading_items">
+            <column name="user_id"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="harish (generated)" id="1511957234844-51">
+        <createIndex indexName="FK_apcc8lxk2xnug8377fatvbn04" tableName="user_role">
+            <column name="user_id"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="harish (generated)" id="1511957234844-52">
+        <createIndex indexName="FK_it77eq964jhfqtu54081ebtio" tableName="user_role">
+            <column name="role_id"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="harish (generated)" id="1511957234844-16">
+        <addForeignKeyConstraint baseColumnNames="resource_id" baseTableName="document_resource" constraintName="FK_lkiqj7a4gc4b6yrgtfe2kjs4q" deferrable="false" initiallyDeferred="false" referencedColumnNames="id" referencedTableName="resource" referencesUniqueColumn="false"/>
+    </changeSet>
+    <changeSet author="harish (generated)" id="1511957234844-17">
+        <addForeignKeyConstraint baseColumnNames="resource_id" baseTableName="link_resource" constraintName="FK_4alc7xk1wq296mhfx64y4oaqv" deferrable="false" initiallyDeferred="false" referencedColumnNames="id" referencedTableName="resource" referencesUniqueColumn="false"/>
+    </changeSet>
+    <changeSet author="harish (generated)" id="1511957234844-18">
+        <addForeignKeyConstraint baseColumnNames="resource_id" baseTableName="reading_item" constraintName="FK_93xit1asu8caf665svq0vqmeq" deferrable="false" initiallyDeferred="false" referencedColumnNames="id" referencedTableName="resource" referencesUniqueColumn="false"/>
+    </changeSet>
+    <changeSet author="harish (generated)" id="1511957234844-19">
+        <addForeignKeyConstraint baseColumnNames="created_by_id" baseTableName="resource" constraintName="FK_g246684ev6hmr47bn9x3jv37f" deferrable="false" initiallyDeferred="false" referencedColumnNames="id" referencedTableName="user" referencesUniqueColumn="false"/>
+    </changeSet>
+    <changeSet author="harish (generated)" id="1511957234844-20">
+        <addForeignKeyConstraint baseColumnNames="topic_id" baseTableName="resource" constraintName="FK_29on5nwfvvdmtimh40b7tnsw5" deferrable="false" initiallyDeferred="false" referencedColumnNames="id" referencedTableName="topic" referencesUniqueColumn="false"/>
+    </changeSet>
+    <changeSet author="harish (generated)" id="1511957234844-21">
+        <addForeignKeyConstraint baseColumnNames="resource_id" baseTableName="resource_rating" constraintName="FK_hmnf6fb69j5w3nttui4g372w9" deferrable="false" initiallyDeferred="false" referencedColumnNames="id" referencedTableName="resource" referencesUniqueColumn="false"/>
+    </changeSet>
+    <changeSet author="harish (generated)" id="1511957234844-22">
+        <addForeignKeyConstraint baseColumnNames="user_id" baseTableName="resource_rating" constraintName="FK_qae5oa07q1791tfyocrc7w995" deferrable="false" initiallyDeferred="false" referencedColumnNames="id" referencedTableName="user" referencesUniqueColumn="false"/>
+    </changeSet>
+    <changeSet author="harish (generated)" id="1511957234844-23">
+        <addForeignKeyConstraint baseColumnNames="subscription_topic_id" baseTableName="subscription_topic" constraintName="FK_tmbxbauvrcv1b53gjjp4m8c5n" deferrable="false" initiallyDeferred="false" referencedColumnNames="id" referencedTableName="subscription" referencesUniqueColumn="false"/>
+    </changeSet>
+    <changeSet author="harish (generated)" id="1511957234844-24">
+        <addForeignKeyConstraint baseColumnNames="topic_id" baseTableName="subscription_topic" constraintName="FK_llhftiy63le9kpbenwahrhj5h" deferrable="false" initiallyDeferred="false" referencedColumnNames="id" referencedTableName="topic" referencesUniqueColumn="false"/>
+    </changeSet>
+    <changeSet author="harish (generated)" id="1511957234844-25">
+        <addForeignKeyConstraint baseColumnNames="subscription_user_id" baseTableName="subscription_user" constraintName="FK_82nom6tw5micunabp7kwbqtxs" deferrable="false" initiallyDeferred="false" referencedColumnNames="id" referencedTableName="subscription" referencesUniqueColumn="false"/>
+    </changeSet>
+    <changeSet author="harish (generated)" id="1511957234844-26">
+        <addForeignKeyConstraint baseColumnNames="user_id" baseTableName="subscription_user" constraintName="FK_a4fbfhdkow6cnbb9xqvd5fdqm" deferrable="false" initiallyDeferred="false" referencedColumnNames="id" referencedTableName="user" referencesUniqueColumn="false"/>
+    </changeSet>
+    <changeSet author="harish (generated)" id="1511957234844-27">
+        <addForeignKeyConstraint baseColumnNames="reading_item_id" baseTableName="user_reading_items" constraintName="FK_kuud68k0atwgcfvoyu2e5m9yp" deferrable="false" initiallyDeferred="false" referencedColumnNames="id" referencedTableName="reading_item" referencesUniqueColumn="false"/>
+    </changeSet>
+    <changeSet author="harish (generated)" id="1511957234844-28">
+        <addForeignKeyConstraint baseColumnNames="user_id" baseTableName="user_reading_items" constraintName="FK_pfol7jm6ryt2xtmn10w8l94c9" deferrable="false" initiallyDeferred="false" referencedColumnNames="id" referencedTableName="user" referencesUniqueColumn="false"/>
+    </changeSet>
+    <changeSet author="harish (generated)" id="1511957234844-29">
+        <addForeignKeyConstraint baseColumnNames="role_id" baseTableName="user_role" constraintName="FK_it77eq964jhfqtu54081ebtio" deferrable="false" initiallyDeferred="false" referencedColumnNames="id" referencedTableName="role" referencesUniqueColumn="false"/>
+    </changeSet>
+    <changeSet author="harish (generated)" id="1511957234844-30">
+        <addForeignKeyConstraint baseColumnNames="user_id" baseTableName="user_role" constraintName="FK_apcc8lxk2xnug8377fatvbn04" deferrable="false" initiallyDeferred="false" referencedColumnNames="id" referencedTableName="user" referencesUniqueColumn="false"/>
+    </changeSet>
+    <changeSet author="harish (generated)" id="1512025153689-1">
+        <addColumn tableName="reading_item">
             <column name="user_id" type="bigint">
                 <constraints nullable="false"/>
             </column>
         </addColumn>
     </changeSet>
-    <changeSet author="harish (generated)" id="1511846126297-5">
-        <addColumn tableName="user">
-            <column name="photo_path" type="varchar(255)">
+    <changeSet author="harish (generated)" id="1512025153689-2">
+        <addColumn tableName="resource">
+            <column name="class" type="varchar(255)">
                 <constraints nullable="false"/>
             </column>
         </addColumn>
     </changeSet>
-    <changeSet author="harish (generated)" id="1511846126297-6">
-        <addPrimaryKey columnNames="user_id, reading_item_id" tableName="user_reading_items"/>
+    <changeSet author="harish (generated)" id="1512025153689-3">
+        <addColumn tableName="resource">
+            <column name="file_path" type="varchar(255)"/>
+        </addColumn>
     </changeSet>
-    <changeSet author="harish (generated)" id="1511846126297-7">
-        <dropForeignKeyConstraint baseTableName="topic" baseTableSchemaName="share_resource" constraintName="FK_4mry2h1j95xrh1a4bvecnmajf"/>
+    <changeSet author="harish (generated)" id="1512025153689-4">
+        <addColumn tableName="resource">
+            <column name="resource_id" type="bigint"/>
+        </addColumn>
     </changeSet>
-    <changeSet author="harish (generated)" id="1511846126297-8">
-        <dropForeignKeyConstraint baseTableName="user" baseTableSchemaName="share_resource" constraintName="FK_j2p4qe65jx4xctyp23qf28la9"/>
+    <changeSet author="harish (generated)" id="1512025153689-5">
+        <addColumn tableName="resource">
+            <column name="topic_code" type="integer">
+                <constraints nullable="false"/>
+            </column>
+        </addColumn>
     </changeSet>
-    <changeSet author="harish (generated)" id="1511846126297-9">
-        <dropForeignKeyConstraint baseTableName="user" baseTableSchemaName="share_resource" constraintName="FK_a6n0ads6w5i1d2rrsx8bn0030"/>
+    <changeSet author="harish (generated)" id="1512025153689-6">
+        <addColumn tableName="resource">
+            <column name="url" type="varchar(255)"/>
+        </addColumn>
     </changeSet>
-    <changeSet author="harish (generated)" id="1511846126297-10">
-        <dropForeignKeyConstraint baseTableName="user" baseTableSchemaName="share_resource" constraintName="FK_1sqjg6sp95f0ao0icvgmq5jjy"/>
+    <changeSet author="harish (generated)" id="1512025153689-7">
+        <addColumn tableName="subscription">
+            <column name="topic_id" type="bigint">
+                <constraints nullable="false"/>
+            </column>
+        </addColumn>
     </changeSet>
-    <changeSet author="harish (generated)" id="1511846126297-16">
-        <createIndex indexName="FK_29on5nwfvvdmtimh40b7tnsw5" tableName="resource">
-            <column name="topic_id"/>
-        </createIndex>
+    <changeSet author="harish (generated)" id="1512025153689-8">
+        <addColumn tableName="subscription">
+            <column name="user_id" type="bigint">
+                <constraints nullable="false"/>
+            </column>
+        </addColumn>
     </changeSet>
-    <changeSet author="harish (generated)" id="1511846126297-17">
-        <createIndex indexName="FK_g246684ev6hmr47bn9x3jv37f" tableName="resource">
-            <column name="created_by_id"/>
-        </createIndex>
+    <changeSet author="harish (generated)" id="1512025153689-9">
+        <dropForeignKeyConstraint baseTableName="document_resource" baseTableSchemaName="share_resource" constraintName="FK_lkiqj7a4gc4b6yrgtfe2kjs4q"/>
     </changeSet>
-    <changeSet author="harish (generated)" id="1511846126297-18">
-        <createIndex indexName="topic_id_uniq_1511846126020" tableName="resource" unique="true">
-            <column name="topic_id"/>
-        </createIndex>
+    <changeSet author="harish (generated)" id="1512025153689-10">
+        <dropForeignKeyConstraint baseTableName="link_resource" baseTableSchemaName="share_resource" constraintName="FK_4alc7xk1wq296mhfx64y4oaqv"/>
     </changeSet>
-    <changeSet author="harish (generated)" id="1511846126297-19">
-        <createIndex indexName="FK_qae5oa07q1791tfyocrc7w995" tableName="resource_rating">
+    <changeSet author="harish (generated)" id="1512025153689-11">
+        <dropForeignKeyConstraint baseTableName="subscription_topic" baseTableSchemaName="share_resource" constraintName="FK_tmbxbauvrcv1b53gjjp4m8c5n"/>
+    </changeSet>
+    <changeSet author="harish (generated)" id="1512025153689-12">
+        <dropForeignKeyConstraint baseTableName="subscription_topic" baseTableSchemaName="share_resource" constraintName="FK_llhftiy63le9kpbenwahrhj5h"/>
+    </changeSet>
+    <changeSet author="harish (generated)" id="1512025153689-13">
+        <dropForeignKeyConstraint baseTableName="subscription_user" baseTableSchemaName="share_resource" constraintName="FK_82nom6tw5micunabp7kwbqtxs"/>
+    </changeSet>
+    <changeSet author="harish (generated)" id="1512025153689-14">
+        <dropForeignKeyConstraint baseTableName="subscription_user" baseTableSchemaName="share_resource" constraintName="FK_a4fbfhdkow6cnbb9xqvd5fdqm"/>
+    </changeSet>
+    <changeSet author="harish (generated)" id="1512025153689-15">
+        <dropForeignKeyConstraint baseTableName="user_reading_items" baseTableSchemaName="share_resource" constraintName="FK_kuud68k0atwgcfvoyu2e5m9yp"/>
+    </changeSet>
+    <changeSet author="harish (generated)" id="1512025153689-16">
+        <dropForeignKeyConstraint baseTableName="user_reading_items" baseTableSchemaName="share_resource" constraintName="FK_pfol7jm6ryt2xtmn10w8l94c9"/>
+    </changeSet>
+    <changeSet author="harish (generated)" id="1512025153689-22">
+        <createIndex indexName="FK_rmxs9jrphvwn7tyg2n82p8wq0" tableName="reading_item">
             <column name="user_id"/>
         </createIndex>
     </changeSet>
-    <changeSet author="harish (generated)" id="1511846126297-20">
-        <createIndex indexName="FK_kuud68k0atwgcfvoyu2e5m9yp" tableName="user_reading_items">
-            <column name="reading_item_id"/>
+    <changeSet author="harish (generated)" id="1512025153689-23">
+        <createIndex indexName="resource_id_uniq_1512025153399" tableName="reading_item" unique="true">
+            <column name="resource_id"/>
         </createIndex>
     </changeSet>
-    <changeSet author="harish (generated)" id="1511846126297-21">
-        <createIndex indexName="FK_pfol7jm6ryt2xtmn10w8l94c9" tableName="user_reading_items">
+    <changeSet author="harish (generated)" id="1512025153689-24">
+        <createIndex indexName="FK_8aryy958k6ueg24n3ufyuksfh" tableName="resource">
+            <column name="resource_id"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="harish (generated)" id="1512025153689-25">
+        <createIndex indexName="FK_aojatoh2ykivd0ukh09f4mn11" tableName="subscription">
+            <column name="topic_id"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="harish (generated)" id="1512025153689-26">
+        <createIndex indexName="FK_tq3cq3gmsss8jjyb2l5sb1o6k" tableName="subscription">
             <column name="user_id"/>
         </createIndex>
     </changeSet>
-    <changeSet author="harish (generated)" id="1511846126297-22">
-        <dropColumn columnName="resource_id" tableName="topic"/>
+    <changeSet author="harish (generated)" id="1512025153689-27">
+        <createIndex indexName="FK_c975xs66f0v6extdjdl0csctr" tableName="topic">
+            <column name="user_id"/>
+        </createIndex>
     </changeSet>
-    <changeSet author="harish (generated)" id="1511846126297-23">
-        <dropColumn columnName="photo" tableName="user"/>
+    <changeSet author="harish (generated)" id="1512025153689-28">
+        <dropTable tableName="document_resource"/>
     </changeSet>
-    <changeSet author="harish (generated)" id="1511846126297-24">
-        <dropColumn columnName="reading_item_id" tableName="user"/>
+    <changeSet author="harish (generated)" id="1512025153689-29">
+        <dropTable tableName="link_resource"/>
     </changeSet>
-    <changeSet author="harish (generated)" id="1511846126297-25">
-        <dropColumn columnName="resource_id" tableName="user"/>
+    <changeSet author="harish (generated)" id="1512025153689-30">
+        <dropTable tableName="subscription_topic"/>
     </changeSet>
-    <changeSet author="harish (generated)" id="1511846126297-26">
-        <dropColumn columnName="resource_rating_id" tableName="user"/>
+    <changeSet author="harish (generated)" id="1512025153689-31">
+        <dropTable tableName="subscription_user"/>
     </changeSet>
-    <changeSet author="harish (generated)" id="1511846126297-11">
-        <addForeignKeyConstraint baseColumnNames="created_by_id" baseTableName="resource" constraintName="FK_g246684ev6hmr47bn9x3jv37f" deferrable="false" initiallyDeferred="false" referencedColumnNames="id" referencedTableName="user" referencesUniqueColumn="false"/>
+    <changeSet author="harish (generated)" id="1512025153689-32">
+        <dropTable tableName="user_reading_items"/>
     </changeSet>
-    <changeSet author="harish (generated)" id="1511846126297-12">
-        <addForeignKeyConstraint baseColumnNames="topic_id" baseTableName="resource" constraintName="FK_29on5nwfvvdmtimh40b7tnsw5" deferrable="false" initiallyDeferred="false" referencedColumnNames="id" referencedTableName="topic" referencesUniqueColumn="false"/>
+    <changeSet author="harish (generated)" id="1512025153689-17">
+        <addForeignKeyConstraint baseColumnNames="user_id" baseTableName="reading_item" constraintName="FK_rmxs9jrphvwn7tyg2n82p8wq0" deferrable="false" initiallyDeferred="false" referencedColumnNames="id" referencedTableName="user" referencesUniqueColumn="false"/>
     </changeSet>
-    <changeSet author="harish (generated)" id="1511846126297-13">
-        <addForeignKeyConstraint baseColumnNames="user_id" baseTableName="resource_rating" constraintName="FK_qae5oa07q1791tfyocrc7w995" deferrable="false" initiallyDeferred="false" referencedColumnNames="id" referencedTableName="user" referencesUniqueColumn="false"/>
+    <changeSet author="harish (generated)" id="1512025153689-18">
+        <addForeignKeyConstraint baseColumnNames="resource_id" baseTableName="resource" constraintName="FK_8aryy958k6ueg24n3ufyuksfh" deferrable="false" initiallyDeferred="false" referencedColumnNames="id" referencedTableName="resource" referencesUniqueColumn="false"/>
     </changeSet>
-    <changeSet author="harish (generated)" id="1511846126297-14">
-        <addForeignKeyConstraint baseColumnNames="reading_item_id" baseTableName="user_reading_items" constraintName="FK_kuud68k0atwgcfvoyu2e5m9yp" deferrable="false" initiallyDeferred="false" referencedColumnNames="id" referencedTableName="reading_item" referencesUniqueColumn="false"/>
+    <changeSet author="harish (generated)" id="1512025153689-19">
+        <addForeignKeyConstraint baseColumnNames="topic_id" baseTableName="subscription" constraintName="FK_aojatoh2ykivd0ukh09f4mn11" deferrable="false" initiallyDeferred="false" referencedColumnNames="id" referencedTableName="topic" referencesUniqueColumn="false"/>
     </changeSet>
-    <changeSet author="harish (generated)" id="1511846126297-15">
-        <addForeignKeyConstraint baseColumnNames="user_id" baseTableName="user_reading_items" constraintName="FK_pfol7jm6ryt2xtmn10w8l94c9" deferrable="false" initiallyDeferred="false" referencedColumnNames="id" referencedTableName="user" referencesUniqueColumn="false"/>
+    <changeSet author="harish (generated)" id="1512025153689-20">
+        <addForeignKeyConstraint baseColumnNames="user_id" baseTableName="subscription" constraintName="FK_tq3cq3gmsss8jjyb2l5sb1o6k" deferrable="false" initiallyDeferred="false" referencedColumnNames="id" referencedTableName="user" referencesUniqueColumn="false"/>
     </changeSet>
-
+    <changeSet author="harish (generated)" id="1512025153689-21">
+        <addForeignKeyConstraint baseColumnNames="user_id" baseTableName="topic" constraintName="FK_c975xs66f0v6extdjdl0csctr" deferrable="false" initiallyDeferred="false" referencedColumnNames="id" referencedTableName="user" referencesUniqueColumn="false"/>
+    </changeSet>
+    <changeSet author="harish (generated)" id="1512026515025-1">
+        <dropColumn columnName="topic_code" tableName="resource"/>
+    </changeSet>
+    <changeSet author="harish (generated)" id="1512028289389-1">
+        <dropNotNullConstraint columnDataType="bigint" columnName="resource_id" tableName="resource_rating"/>
+    </changeSet>
 
 </databaseChangeLog>
