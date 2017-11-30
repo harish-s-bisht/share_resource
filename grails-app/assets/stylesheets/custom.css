@@ -105,3 +105,33 @@ a{
 .b-t-0{
     border-top: none;
 }
+.hand-cursor{
+    cursor: pointer;
+}
+.border{
+    border: 1px solid black;
+    border-top: none;
+    padding: 5px;
+}
+.h-5{
+    height: 5px;
+}
+.tranding_header{
+    border: 1px solid black;
+    padding-left: 20px;
+    background-color: lightgray;
+    height: 35px;
+
+    /*border-radius: 5px;*/
+}
+.dashboard{
+    padding: 20px;
+    border: 1px solid gray;
+}
+.error{
+    color: red;
+}
+.msg-h-30{
+    height: 30px;
+    margin-top:20px;
+}
